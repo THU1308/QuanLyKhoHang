@@ -18,6 +18,27 @@ namespace QLKHO
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
             );
+
+            // Thêm đường dẫn cho action "ExportExcel"
+            routes.MapRoute(
+                name: "ExportExcel",
+                url: "ThongKe/ExportExcel",
+                defaults: new { controller = "ThongKe", action = "ExportExcel" }
+            );
+
+            // Logout
+            routes.MapRoute(
+                name: "Logout",
+                url: "Home/Logout",
+                defaults: new { controller = "Home", action = "Logout" }
+            );
+
+            routes.MapRoute(
+            name: "DelSPList",
+            url: "PhieuNhaps/DelSPList/{id}",
+            defaults: new { controller = "PhieuNhaps", action = "DelSPListP", id = UrlParameter.Optional }
+        );
+
         }
     }
 }
