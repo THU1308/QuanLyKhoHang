@@ -1,4 +1,4 @@
-namespace QLKHO.Models
+﻿namespace QLKHO.Models
 {
     using System;
     using System.Collections.Generic;
@@ -20,6 +20,8 @@ namespace QLKHO.Models
         public int MaDVT { get; set; }
 
         [StringLength(100)]
+        [Required(ErrorMessage = "Tên Đơn Vị Tính không được để trống")]
+        [RegularExpression(@"^[^\d]+$", ErrorMessage = "Tên Đơn Vị Tính không được chứa số")]
         public string TenDVT { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

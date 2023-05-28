@@ -18,8 +18,10 @@ namespace QuanLyKhoHang.Controllers
         public ActionResult Index()
         {
             var phieuNhap = db.PhieuNhap.Include(p => p.NhaCungCap).Include(p => p.TaiKhoan);
+            var x = db.TaiKhoan.Include(p=>p.PhanQuyen);
             return View(phieuNhap.ToList());
         }
+        
         public ActionResult ChiTietPhieu(int? id)
         {
             var chiTietPN = db.ChiTietPhieuNhap
@@ -77,13 +79,21 @@ namespace QuanLyKhoHang.Controllers
                 int.TryParse(Request["MaTK"], out idnhanvien) &&
                 int.TryParse(Request["TenSanPham"], out idsp))
             {
+
                 NhaCungCap ncc = db.NhaCungCap.Find(idncc);
                 TaiKhoan tk = db.TaiKhoan.Find(idnhanvien);
-                ViewBag.idncc = idncc;
+                /*ViewBag.idncc = idncc;
                 ViewBag.tenncc = ncc != null ? ncc.TenNCC : "";
                 ViewBag.idnv = idnhanvien;
                 ViewBag.tennv = tk != null ? tk.HoTen : "";
-                ViewBag.ngaynhap = Request["ngaynhap"];
+                ViewBag.ngaynhap = Request["ngaynhap"];*/
+
+                Session["mapn"] = Request["mapn"];
+                Session["idncc"] = idncc;
+                Session["tenncc"] = ncc != null ? ncc.TenNCC : "";
+                Session["idnv"] = idnhanvien;
+                Session["tennv"] = tk != null ? tk.HoTen : "";
+                Session["ngaynhap"] = Request["ngaynhap"];
 
                 SanPham x = db.SanPham.Find(idsp);
                 if (x != null)
@@ -95,29 +105,63 @@ namespace QuanLyKhoHang.Controllers
                     ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
                     if (int.TryParse(Request["mapn"], out int mapn))
                     {
-                        ViewBag.mapn = mapn;
+                        /*ViewBag.mapn = mapn;*/
                         ctpn.MaPhieuNhap = mapn;
                         ctpn.MaSP = x.MaSP;
                         ctpn.DonGia = x.GiaBan;
                         ctpn.SoLuong = x.SoLuongCon;
                         listctpn.Add(ctpn);
-                        ChiTietCungCap chiTietCungCap = new ChiTietCungCap();
+
+
+                        /*ChiTietCungCap chiTietCungCap = new ChiTietCungCap();
                         Random random = new Random();
                         int id = random.Next(1000);
                         chiTietCungCap.id = id;
                         chiTietCungCap.MaNCC = idncc;
                         chiTietCungCap.MaSP = idsp;
                         chiTietCungCap.GiaNhap = x.GiaBan;
-                        listctcc.Add(chiTietCungCap);
+                        listctcc.Add(chiTietCungCap);*/
                     }
                 }
             }
             return View(listsp);
         }
 
-            
 
-        
+
+        public ActionResult DelSPList(int? id)
+        {
+            var itemToRemove = listsp.FirstOrDefault(item => item.MaSP == id);
+            if (itemToRemove != null)
+            {
+                listsp.Remove(itemToRemove);
+            }
+
+            var itemsToRemove = listctpn.FirstOrDefault(item => item.MaSP == id);
+            if (itemsToRemove != null)
+            {
+                listctpn.Remove(itemsToRemove);
+            }
+
+            return RedirectToAction("Create1");
+        }
+
+        public ActionResult DelSPList2(int? id)
+        {
+            var itemToRemove = listsp.FirstOrDefault(item => item.MaSP == id);
+            if (itemToRemove != null)
+            {
+                listsp.Remove(itemToRemove);
+            }
+
+            var itemsToRemove = listctpn.FirstOrDefault(item => item.MaSP == id);
+            if (itemsToRemove != null)
+            {
+                listctpn.Remove(itemsToRemove);
+            }
+            return RedirectToAction("Create2");
+        }
+
 
         public ActionResult Create2()
         {
@@ -141,14 +185,14 @@ namespace QuanLyKhoHang.Controllers
                 ViewBag.DonViTinh = new List<DonViTinh>();
             }
 
-            var ncc = Request["MaNCC"];
+            /*var ncc = Request["MaNCC"];
             var ngaynhap = Request["ngaynhap"];
-            var nhanvien = Request["MaTK"];
-            ViewBag.ncc = ncc;
+            var nhanvien = Request["MaTK"];*/
+           /* ViewBag.ncc = ncc;
             ViewBag.nv = nhanvien;
-            ViewBag.ngaynhap = ngaynhap;
+            ViewBag.ngaynhap = ngaynhap;*/
 
-            int idncc;
+            /*int idncc;
             if (int.TryParse(Request["idncc"], out idncc))
             {
                 ViewBag.idncc = idncc;
@@ -158,7 +202,7 @@ namespace QuanLyKhoHang.Controllers
             if (int.TryParse(Request["idtk"], out idnhanvien))
             {
                 ViewBag.idnv = idnhanvien;
-            }
+            }*/
 
             int idsp;
             if (int.TryParse(Request["TenSanPham"], out idsp))
@@ -184,21 +228,21 @@ namespace QuanLyKhoHang.Controllers
                     int maPhieuNhap;
                     if (int.TryParse(Request["mapn"], out maPhieuNhap))
                     {
-                        ViewBag.mapn = maPhieuNhap;
+                        /*ViewBag.mapn = maPhieuNhap;*/
                         ctpn.MaPhieuNhap = maPhieuNhap;
                         ctpn.MaSP = x.MaSP;
                         ctpn.DonGia = x.GiaBan;
                         ctpn.SoLuong = x.SoLuongCon;
                         listctpn.Add(ctpn);
 
-                        ChiTietCungCap chiTietCungCap = new ChiTietCungCap();
+                        /*ChiTietCungCap chiTietCungCap = new ChiTietCungCap();
                         Random random = new Random();
                         int id = random.Next(1000);
                         chiTietCungCap.id = id;
                         chiTietCungCap.MaNCC = idncc;
                         chiTietCungCap.MaSP = idsp;
                         chiTietCungCap.GiaNhap = x.GiaBan;
-                        listctcc.Add(chiTietCungCap);
+                        listctcc.Add(chiTietCungCap);*/
                     }                   
                 }
             }
@@ -237,10 +281,10 @@ namespace QuanLyKhoHang.Controllers
                     db.SaveChanges();
                 }
             }
-            foreach(var item in listctcc)
+            /*foreach(var item in listctcc)
             {
                 db.ChiTietCungCap.Add(item);
-            }
+            }*/
             db.SaveChanges();
             listsp.Clear();
             listctpn.Clear();

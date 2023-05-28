@@ -126,10 +126,10 @@ namespace QLKHO.Controllers
                 listsp.Remove(itemToRemove);
             }
 
-            var itemsToRemove = listctpx.Where(item => item.MaSP == id).ToList();
-            foreach (var item in itemsToRemove)
+            var itemsToRemove = listctpx.FirstOrDefault(item => item.MaSP == id);
+            if (itemsToRemove != null)
             {
-                listctpx.Remove(item);
+                listctpx.Remove(itemsToRemove);
             }
 
             return RedirectToAction("Create1");
@@ -143,10 +143,10 @@ namespace QLKHO.Controllers
                 listsp.Remove(itemToRemove);
             }
 
-            var itemsToRemove = listctpx.Where(item => item.MaSP == id).ToList();
-            foreach (var item in itemsToRemove)
+            var itemsToRemove = listctpx.FirstOrDefault(item => item.MaSP == id);
+            if (itemsToRemove != null)
             {
-                listctpx.Remove(item);
+                listctpx.Remove(itemsToRemove);
             }
             return RedirectToAction("Create2");
         }

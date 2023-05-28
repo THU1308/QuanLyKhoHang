@@ -1,4 +1,4 @@
-namespace QLKHO.Models
+﻿namespace QLKHO.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,19 +19,26 @@ namespace QLKHO.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int MaSP { get; set; }
-
+        public int MaSP { get; set; }     
         public int? MaDVT { get; set; }
 
         [StringLength(100)]
+        [Required(ErrorMessage ="Tên sản phẩm không được để trống")]
         public string TenSP { get; set; }
 
         [Column(TypeName = "money")]
+        [Required(ErrorMessage = "Giá bán không được để trống")]
+        [Range(0, double.MaxValue, ErrorMessage = "Giá bán không hợp lệ")]
         public decimal? GiaBan { get; set; }
+
+        [Required(ErrorMessage = "Số lượng không được để trống")]
+        [Range(0, int.MaxValue, ErrorMessage = "Số lượng không hợp lệ")]
 
         public int? SoLuongCon { get; set; }
 
         [StringLength(100)]
+        [Required(ErrorMessage = "Chưa upload file ảnh")]
+       
         public string Anh { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,4 +1,4 @@
-namespace QLKHO.Models
+﻿namespace QLKHO.Models
 {
     using System;
     using System.Collections.Generic;
@@ -21,15 +21,23 @@ namespace QLKHO.Models
         public int MaNCC { get; set; }
 
         [StringLength(100)]
+        [Required(ErrorMessage ="Tên Nhà Cung Cấp không được để trống")]
+        [RegularExpression(@"^[^\d]+$", ErrorMessage = "Tên Nhà Cung Cấp không được chứa số")]
         public string TenNCC { get; set; }
 
         [StringLength(100)]
+        [Required(ErrorMessage = "Email không được để trống")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Định dạng email không hợp lệ")]
         public string Email { get; set; }
 
         [StringLength(100)]
+        [Required(ErrorMessage ="Số Fax không được để trống")]
+        [RegularExpression(@"^[0-9]{10,}$", ErrorMessage = "Số Fax không hợp lệ.")]
         public string Fax { get; set; }
 
         [StringLength(100)]
+        [Required(ErrorMessage = "Số điện thoại không được để trống")]
+        [RegularExpression(@"^[0-9]{10,11}$", ErrorMessage = "Số điện thoại không hợp lệ")]
         public string SoDienThoai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

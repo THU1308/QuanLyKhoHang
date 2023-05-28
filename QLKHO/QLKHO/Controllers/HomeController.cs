@@ -12,22 +12,28 @@ namespace QLKHO.Controllers
         private MyDB db = new MyDB();
         public ActionResult Login()
         {
+            // Tìm kiếm tài khoản với username tương ứng
             string account = Request["account"];
             string password = Request["password"];
-            TaiKhoan tk = db.TaiKhoan.FirstOrDefault(t => t.TenTK == account && t.MatKhau == password);
-            if (tk != null)
+            TaiKhoan taiKhoan = db.TaiKhoan.FirstOrDefault(t => t.TenTK == account);
+
+            // Kiểm tra mật khẩu
+            if (taiKhoan != null && BCrypt.Net.BCrypt.Verify(password, taiKhoan.MatKhau))
             {
-                // Đặt giá trị biến toàn cục
-                Session["hoten"] = tk.HoTen;
-
-                // Lấy giá trị biến toàn cục
-                string myVariable = (string)Session["hoten"];
-
+                // Mật khẩu đúng, tiến hành đăng nhập
+                // Lưu thông tin đăng nhập vào Session hoặc cookie, redirect đến trang chính, ...
+                Session["hoten"] = taiKhoan.HoTen;
+                Session["quyen"] = taiKhoan.MaPQ;
+                Session["tentk"] = taiKhoan.TenTK;
                 return RedirectToAction("Welcome", "Home");
             }
-            return View();
+            else
+            {
+                // Sai tên đăng nhập hoặc mật khẩu
+                // Xử lý thông báo lỗi, đưa ra thông báo cho người dùng, ...
 
-
+                return View();
+            }
         }
 
         public ActionResult Logout()

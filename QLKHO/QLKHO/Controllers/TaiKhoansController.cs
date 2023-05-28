@@ -49,7 +49,7 @@ namespace QLKHO.Controllers
             // Kiểm tra các trường dữ liệu
             if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
             {
-                ViewBag.ErrorMessage = "Vui lòng nhập đầy đủ thông tin.";
+                ViewBag.ErrorMessage = "Vui lòng nhập đầy đủ thông tin";
                 return View();
             }
             else if (newPassword != confirmPassword)
@@ -111,8 +111,7 @@ namespace QLKHO.Controllers
             {
                 // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
                 taiKhoan.MatKhau = BCrypt.Net.BCrypt.HashPassword(taiKhoan.MatKhau);
-               
-
+              
                 db.TaiKhoan.Add(taiKhoan);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -1,4 +1,4 @@
-namespace QLKHO.Models
+﻿namespace QLKHO.Models
 {
     using System;
     using System.Collections.Generic;

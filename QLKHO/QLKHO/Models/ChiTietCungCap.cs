@@ -17,7 +17,9 @@ namespace QLKHO.Models
         public decimal? GiaNhap { get; set; }
 
         public int id { get; set; }
-        public object NhaCungCap { get; internal set; }
-        public object SanPham { get; internal set; }
+
+        public virtual NhaCungCap NhaCungCap { get; set; }
+
+        public virtual SanPham SanPham { get; set; }
     }
 }

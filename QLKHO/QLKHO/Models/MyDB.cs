@@ -8,7 +8,7 @@ namespace QLKHO.Models
     public partial class MyDB : DbContext
     {
         public MyDB()
-            : base("name=MyDB")
+            : base("name=MyDB2")
         {
         }
 
@@ -23,6 +23,7 @@ namespace QLKHO.Models
         public virtual DbSet<PhieuXuat> PhieuXuat { get; set; }
         public virtual DbSet<Quyen> Quyen { get; set; }
         public virtual DbSet<SanPham> SanPham { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoan { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
