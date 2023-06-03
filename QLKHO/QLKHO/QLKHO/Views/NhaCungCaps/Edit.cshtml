@@ -1,0 +1,66 @@
+﻿@model QLKHO.Models.NhaCungCap
+
+<div class="container-fluid">
+    <div style="max-height: 500px ;" class="row px-5 overflow-auto">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal" style="width:30rem">
+                <h4>Nhà Cung Cấp</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.MaNCC)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TenNCC, "Tên Nhà Cung Cấp", htmlAttributes: new { @class = "d-inline control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TenNCC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenNCC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = " control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Fax, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SoDienThoai, "Số Điện Thoại", htmlAttributes: new { @class = "d-inline control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to list", "Index", new { @class = "btn btn-primary w-block-8" })
+    </div>
+
+    @*<div class="container pt-3">
+            <div class="row justify-content-end">
+                <a href="ThemNCC.html" class="btn btn-primary w-block-8">Thêm</a>
+            </div>
+        </div>*@
+</div>

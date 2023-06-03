@@ -1,0 +1,71 @@
+﻿@model IEnumerable<QLKHO.Models.PhieuNhap>
+
+<div class="container-fluid">
+    <div style="max-height: 500px ;" class="row px-5 overflow-auto">
+        <h1 style="text-align: center; width: 100%;" class="h3 mb-2 text-gray-800">Danh Sách Phiếu Nhập</h1>
+
+        <table class="table table-hover table-bordered ">
+            <thead class="text-center">
+            <th scope="col">Mã Phiếu</th>
+            <th scope="col">Tên Nhà Cung Cấp</th>
+            <th scope="col">Nhân Viên</th>
+            <th scope="col">Ngày Lập</th>
+            <th scope="col">Tổng Tiền</th>
+            <th scope="col">Action</th>
+            </thead>
+
+
+            @foreach (var item in Model)
+            {
+                <tr style="text-align:center">
+                    <td>
+                        @if (item != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.MaPhieuNhap)
+                        }
+                    </td>
+                    <td>
+                        @if (item != null && item.NhaCungCap != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.NhaCungCap.TenNCC)
+                        }
+                    </td>
+                    <td>
+                        @if (item != null && item.TaiKhoan != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.TaiKhoan.HoTen)
+                        }
+                    </td>
+                    <td>
+                        @if (item != null)
+                        {
+                            @item.NgayLap.Value.ToString("dd-MM-yyyy")
+                        }
+                    </td>
+                    <td>
+                        @if (item != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.ThanhTien)
+                        }
+                    </td>
+                    <td style="display: flex; justify-content: space-around;">
+                        @if (item != null)
+                        {
+                            @Html.ActionLink("Chi Tiết", "ChiTietPhieu", new { id = item.MaPhieuNhap }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("In", "Print", new { id = item.MaPhieuNhap }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Xóa", "Delete", new { id = item.MaPhieuNhap }, new { @class = "btn btn-danger" })
+                        }
+                    </td>
+                </tr>
+            }
+
+
+
+        </table>
+    </div>
+    <div class="container pt-3">
+        <div class="row justify-content-end">
+            <a href="~/PhieuNhaps/Create" class="btn btn-primary w-block-8">Thêm</a>
+        </div>
+    </div>
+</div>

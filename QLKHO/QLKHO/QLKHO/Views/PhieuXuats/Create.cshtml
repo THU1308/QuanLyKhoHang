@@ -1,0 +1,91 @@
+﻿@model QLKHO.Models.PhieuXuat
+@using QLKHO.Models
+
+
+<form class="container" method="post">
+
+    <h1 class="h3 mb-2 text-gray-800">Đơn Hàng</h1>
+    <div class="row px-5 border border-primary pb-4 ">
+        <div class="row" style="width: 100%; justify-content: space-around;">
+            <div style="width: 40%;" class="form-group">
+                <label for="mapx">Mã Phiếu</label>
+                <input readonly class="form-control" name="mapx" value="@ViewBag.mapx" />
+            </div>
+            <div style="width: 40%;" class="form-group">
+                <label for="kh">Khách Hàng</label>
+                @Html.DropDownList("MaKH", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row justify-content-around " style="width:100%;">
+            <div style="width:40%;">
+                <label for="ngaynhap">Ngày Nhập</label>
+                <input name="ngayxuat" type="date" id="ngayxuat" class="form-control" required>
+            </div>
+
+            <div style="width:40%">
+                <label for="nhanvien">Nhân Viên</label>
+                @Html.DropDownList("MaTK", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaTK, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <h1 class="h3 mb-2 text-gray-800">Chi Tiết Đơn</h1>
+
+    <div class="row px-5 border border-primary pb-4 ">
+        <div class="row justify-content-around " style="width:100%;">
+            <div style="width: 40%;">
+                <label for="sanpham">Sản Phẩm</label>
+                @Html.DropDownList("TenSanPham", new SelectList(ViewBag.SanPham, "MaSP", "TenSP"), new { @class = "form-control" })
+
+            </div>
+
+            <div style="width: 40%; ">
+
+            </div>
+        </div>
+
+        <div class="row justify-content-around " style="width:100%;">
+            <div style="width: 40%;">
+                <label for="soluong">Số Lượng</label>
+                <input name="soluong" type="text" id="soluong" class="form-control" >
+            </div>
+
+            <div style="width: 40%;">
+                <label for="dongia">Đơn Giá</label>
+                <input name="dongia" type="text" id="dongia" class="form-control" >
+            </div>
+        </div>
+
+        <div style="width: 100%;" class="row pt-3 justify-content-end px-5">
+            <button type="submit" formaction="~/PhieuXuats/Create1" class="btn btn-success">Thêm</button>
+        </div>
+
+        <table class="table table-bordered table-hover mt-3 px-5">
+            <thead class="text-center">
+            <th scope="col">Tên Sản Phẩm</th>
+            <th scope="col">Đơn Vị Tính</th>
+            <th scope="col">Đơn Giá</th>
+            <th scope="col">Số Lượng</th>
+            <th scope="col">Thành Tiền</th>
+            <th scope="col">Action</th>
+            </thead>
+        </table>
+    </div>
+
+    <div style="width: 100%;" class="row mt-3 justify-content-between">
+
+        <button class="btn btn-outline-primary" formaction="~/PhieuXuats/Add">Tạo Đơn</button>
+    </div>
+
+</form>
+
+
+<script>
+    $(document).ready(function () {
+        var currentDate = new Date().toISOString().slice(0, 10);
+        $('#ngayxuat').val(currentDate);
+    });
+</script>

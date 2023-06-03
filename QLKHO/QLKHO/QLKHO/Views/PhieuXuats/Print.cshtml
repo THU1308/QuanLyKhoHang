@@ -1,0 +1,124 @@
+﻿@model IEnumerable<QLKHO.Models.ChiTietPhieuXuat>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .invoice-header {
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .invoice-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .invoice-details {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+        .invoice-details .col {
+            flex: 1;
+        }
+
+            .invoice-details .col:first-child {
+                text-align: left;
+            }
+
+            .invoice-details .col:last-child {
+                text-align: right;
+            }
+
+    .table {
+        margin-bottom: 20px;
+    }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+</style>
+
+<div class="container">
+    <div class="invoice-header">
+        <h2 class="invoice-title">HÓA ĐƠN</h2>
+    </div>
+    <div class="invoice-details">
+        @if (Model.Count() > 0)
+        {
+            var item = Model.ToList()[0];
+
+            <div class="col">
+                <strong>Mã Phiếu:</strong> @item.PhieuXuat.MaPhieuXuat<br>
+                <strong>Khách Hàng:</strong> @item.PhieuXuat.KhachHang.TenKH<br>
+                <strong>Nhân Viên:</strong> @item.PhieuXuat.TaiKhoan.HoTen<br>
+            </div>
+            <div class="col">
+                <strong>Ngày Lập:</strong> @item.PhieuXuat.NgayLap.Value.ToString("dd-MM-yyyy")<br>
+                <strong>Tổng Tiền:</strong> @item.PhieuXuat.ThanhTien<br>
+            </div>
+        }
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Mã Sản Phẩm</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Đơn Giá</th>
+                <th>Số Lượng</th>
+                <th>Thành Tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                decimal? thanhTien = item.DonGia * item.SoLuong;
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MaSP)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SanPham.TenSP)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DonGia)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
+                    <td>@(thanhTien.HasValue ? thanhTien.Value : 0m)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div style="display:flex;justify-content:space-between">
+        <a href="~/PhieuXuats/Index" class="btn btn-primary">Quay Lại</a>
+        @*<a href="~/PhieuXuats/Index" class="btn btn-primary">Quay Lại</a>*@
+    </div>
+</div>

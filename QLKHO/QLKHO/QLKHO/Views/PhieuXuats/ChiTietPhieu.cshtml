@@ -1,0 +1,71 @@
+﻿@model IEnumerable<QLKHO.Models.ChiTietPhieuXuat>
+<div class="container-fluid">
+    <div style="max-height: 500px ;" class="row px-5 overflow-auto">
+        <h1 style="text-align: center; width: 100%;" class="h3 mb-2 mt-5 text-gray-800 ">Thông Tin Đơn</h1>
+
+        <table class="table table-hover table-bordered ">
+            <thead class="text-center">
+            <th scope="col">Mã Phiếu</th>
+            <th scope="col">Khách Hàng</th>
+            <th scope="col">Nhân Viên</th>
+            <th scope="col">Ngày Lập</th>
+            <th scope="col">Tổng Tiền</th>
+            </thead>
+            @if (Model.Count() > 0)
+            {
+                var item = Model.ToList()[0];
+
+                <tr class="text-center">
+                    <th scope="row">@item.PhieuXuat.MaPhieuXuat</th>
+                    <td>@item.PhieuXuat.KhachHang.TenKH</td>
+                    <td>@item.PhieuXuat.TaiKhoan.HoTen</td>
+                    <td>@item.PhieuXuat.NgayLap.Value.ToString("dd-MM-yyyy")</td>
+                    <td>@item.PhieuXuat.ThanhTien</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+
+    <div class="container pt-5">
+        <div class="row">
+            <h1 style="text-align: center; width: 100%;" class="h3 mb-2 text-gray-800">Chi Tiết Đơn</h1>
+            <table class="table table-bordered table-hover">
+                <thead class="text-center">
+                <th scope="col">Mã Sản Phẩm</th>
+                <th scope="col">Tên Sản Phẩm</th>
+                <th scope="col">Đơn Giá</th>
+                <th scope="col">Số Lượng</th>
+                <th scope="col">Thành Tiền</th>
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                    decimal? thanhTien = item.DonGia * item.SoLuong;
+                    <tr style="text-align:center">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaSP)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SanPham.TenSP)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DonGia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuong)
+                        </td>
+                        <td>
+                            @(thanhTien.HasValue ? thanhTien.Value : 0m)
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </div>
+        <div class="row justify-content-end">
+            <a href="~/PhieuXuats/Index" class="btn btn-primary">Quay Lại</a>
+        </div>
+    </div>
+</div>

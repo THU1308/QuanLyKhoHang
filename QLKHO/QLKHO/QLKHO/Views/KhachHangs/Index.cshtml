@@ -1,0 +1,40 @@
+﻿@model IEnumerable<QLKHO.Models.KhachHang>
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div class="container-fluid">
+            <div style="max-height: 500px ;" class="row px-5 overflow-auto">
+                <h1 style="text-align: center; width: 100%;" class="h3 mb-2 text-gray-800">Khách Hàng</h1>
+
+                <table class="table table-hover table-bordered ">
+                    <thead class="text-center">
+                    <th scope="col">Tên Khách Hàng</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Số Điện Thoại</th>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@item.TenKH</td>
+                            <td>@item.Email</td>
+                            <td>@item.SoDienThoai</td>
+                            <td class="d-flex justify-content-around">
+                                @Html.ActionLink("Sửa", "Edit", new { id = item.MaKH }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.MaKH }, new { @class = "btn btn-danger" })
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="container pt-3">
+                <div class="row justify-content-end">
+                    <a href="Create" class="btn btn-primary ">Thêm</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>

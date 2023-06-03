@@ -1,0 +1,45 @@
+﻿@model QLKHO.Models.DonViTinh
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="container-fluid">
+        <div style="max-height: 500px ;" class="row px-5 overflow-auto">
+            <h1 style="text-align: center; width: 100%;" class="h3 mb-2 text-gray-800">Đơn Vị Tính</h1>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MaDVT, "Mã Đơn Vị Tính", htmlAttributes: new { @class = "control-label " })
+                        <div class="col-md-10">
+                            @{
+                                Random random = new Random();
+                                int madvt = random.Next(1000);
+                            }
+                            <input readonly class="form-control" name="MaDVT" value="@madvt" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TenDVT, "Tên Đơn Vị Tính", htmlAttributes: new { @class = "control-label " })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.TenDVT, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenDVT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    @Html.ActionLink("Back to list", "Index")
+                </div>
+            }
+        </div>
+    </div>
+</div>
