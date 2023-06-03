@@ -13,8 +13,13 @@
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaDVT { get; set; }
 
+<<<<<<< HEAD:QLKHO/QLKHO/QLKHO/Models/DonViTinh.cs
         [Required(ErrorMessage = "Tên Đơn Vị Tính không được để trống")]
         [StringLength(100, ErrorMessage = "Tên Đơn Vị Tính không được vượt quá 100 ký tự")]
+=======
+        [StringLength(100)]
+        [Required(ErrorMessage = "Tên Đơn Vị Tính không được để trống")]
+>>>>>>> e63bec154b0ad6905191a88f87d4449a3f379879:QLKHO/QLKHO/Models/DonViTinh.cs
         [RegularExpression(@"^[^\d]+$", ErrorMessage = "Tên Đơn Vị Tính không được chứa số")]
         public string TenDVT { get; set; }
 
